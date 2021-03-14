@@ -1,11 +1,12 @@
 name: auto-updating coverage
 
-#on:
+on:
 #  push:
 #    branches:
 #      - master
 #  schedule:
 #    - cron: "0 18 * * *"
+  workflow_dispatch:
 
 jobs:
   update-data:
