@@ -7,8 +7,10 @@ Archiviert den aktuellen Overlay der [Ausbaukarte](https://t-map.telekom.de/tmap
 ## Aktueller Stand
 ![Ausbaukarte Tamm](coverage-tamm.svg)
 
+### Legende
+![Legende](Telekom-Legende.png)
 ## License
 
 Für den Code innerhalb des Repositorys: Apache-2.0
 
-(natürlich nicht für die heruntegeladenen SVGs)
+(natürlich nicht für die heruntergeladenen SVGs und die Legende)
