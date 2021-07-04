@@ -3,7 +3,6 @@ import org.ajoberstar.gradle.git.publish.tasks.GitPublishPush
 import org.ajoberstar.gradle.git.publish.tasks.GitPublishReset
 import org.ajoberstar.grgit.Grgit
 
-
 val extension = project.extensions.create<BreitbandausbaumonitorExtension>("Breitbandausbaumonitor")
 extension.repoDirectory.convention(project.layout.buildDirectory.dir("Breitbandausbaumonitor/repo"))
 
@@ -14,7 +13,7 @@ tasks.withType<DownloadCoverageTask> {
         bbox.convention(downloadTask.bbox)
         size.convention(downloadTask.size)
         coverageFile.convention(downloadTask.destFile)
-        outputDirectory.convention(downloadTask.region.map { extension.repoDirectory.dir("regions/${it}/coverage").get() })
+        outputDirectory.convention(downloadTask.region.map { extension.repoDirectory.dir("overlays/${it}").get() })
         dependsOn(repoCheckoutTask)
     }
 }
