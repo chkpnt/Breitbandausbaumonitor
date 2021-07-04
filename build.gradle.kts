@@ -14,3 +14,8 @@ tasks.register<DownloadCoverageTask>("downloadCoverageForTamm") {
     size.set("1000,594")
 }
 
+tasks.register<DownloadCoverageTask>("downloadCoverageForKarlsruhe") {
+    region.set("Karlsruhe")
+    bbox.set("920378.2575818074,6285684.365489043,952481.8094615815,6267721.663842026")
+    size.set("1680,940")
+}
