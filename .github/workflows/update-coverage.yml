@@ -12,21 +12,23 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ssh-key: ${{ secrets.WORKFLOW_SSH_KEY }}
+
       - name: Set up Java environment
         uses: actions/setup-java@v1
         with:
           java-version: 11
 
-      - name: Download current coverage overlay
-        run: ./gradlew downloadCurrentCoverageOverlay
+      - uses: webfactory/ssh-agent@v0.5.1
+        with:
+          ssh-private-key: ${{ secrets.WORKFLOW_SSH_KEY }}
+
+      - name: Update all coverage overlays in a locally cloned Breitbandausbaumonitor repository
+        run: ./gradlew updateAllCoverageMaps
 
       - name: Set Git author information
         run: |
           git config --global user.name "chkpnt CI"
           git config --global user.email "chkpnt-ci@chkpnt.de"
 
-      - uses: webfactory/ssh-agent@v0.5.1
-        with:
-          ssh-private-key: ${{ secrets.WORKFLOW_SSH_KEY }}
-      - name: Push data, if there are any changes
-        run: ./gradlew gitPublishPush --info
+      - name: Commit and push repository, if there are any changes
+        run: ./gradlew repoCommit repoPush --info
