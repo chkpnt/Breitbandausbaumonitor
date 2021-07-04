@@ -1,10 +1,31 @@
+@file:UseSerializers(OffsetDateTimeIso8601Serializer::class)
+
+import kotlinx.serialization.*
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.hash.HashUtil
+import java.io.File
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
+/**
+ * Compares the downloaded svg with the latest from the corresponding folder in the
+ * Breitbandausbaumonitor repository. If it differs, the file is copied to the
+ * repository and the metadata file data.json is updated.
+ */
 abstract class UpdateCoverageTask : DefaultTask() {
 
     @get:Input
@@ -16,33 +37,89 @@ abstract class UpdateCoverageTask : DefaultTask() {
     @get:Input
     abstract val size: Property<String>
 
+    @get:InputFile
+    abstract val coverageFile: RegularFileProperty
+
     @get:OutputDirectory
     abstract val outputDirectory: DirectoryProperty
 
-    private val emptyMetadata: String = """
-        {
-            "bbox": null,
-            "size": null,
-            "coverages": [
-            ]
-        }
-    """.trimIndent()
+    private val metadataFile: File
+        get() = outputDirectory.file("data.json").get().asFile
+
+    init {
+        group = "Breitbandausbaumonitor"
+    }
 
     @TaskAction
-    fun update() {
-
-        updateMetadata()
-        //ant.invokeMethod("get", mapOf("src" to downloadUrl, "dest" to destFile.get()))
+    fun updateIfNecessary() {
+        val coveragefileMetadata = createCoveragefileMetadata()
+        val previousRegionMetadata = readPreviousRegionMetadata()
+        if (!hasCoverageChanged(previousRegionMetadata, coveragefileMetadata)) {
+            println("No change in coverage map detected")
+            return
+        }
+        update(coveragefileMetadata, previousRegionMetadata)
+        println(json.encodeToString(previousRegionMetadata))
     }
 
-    private fun updateMetadata() {
-        var metadataFile = outputDirectory.file("coverage/data.json").get().asFile
-        val metadataJson = metadataFile.takeIf { it.exists() }?.readText() ?: emptyMetadata
-        val metadata = (groovy.json.JsonSlurper().parseText(metadataJson) as Map<String, *>).toMutableMap()
-        metadata["bbox"] = bbox.get();
-        //metadata = bbox.get()
-        //val a = groovy.json.JsonSlurper().parse(metadataFile.asFile)
-        println(metadata)
-        println(metadata.javaClass.name)
+    private fun update(coveragefileMetadata: CoveragefileMetadata, previousRegionMetadata: RegionMetadata) {
+        val today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val newFileName = "${today}.${coverageFile.get().asFile.extension}"
+        val newFile = outputDirectory.file(newFileName).get().asFile
+        coverageFile.get().asFile.copyTo(newFile, overwrite = true)
+        println("New coverage map saved to ${newFile.relativeTo(project.projectDir)}")
+
+        coveragefileMetadata.file = newFileName
+        previousRegionMetadata.coverages.add(0, coveragefileMetadata)
+        metadataFile.writeText(json.encodeToString(previousRegionMetadata))
     }
+
+    private fun hasCoverageChanged(regionMetadata: RegionMetadata, newCoveragefileMetadata: CoveragefileMetadata): Boolean {
+        val lastHash = regionMetadata.coverages.firstOrNull()?.sha1
+        val currentHash = newCoveragefileMetadata.sha1
+        return lastHash != currentHash
+    }
+
+    private fun readPreviousRegionMetadata(): RegionMetadata {
+        return metadataFile.takeIf { it.exists() }
+                ?.readText()
+                ?.let { json.decodeFromString<RegionMetadata>(it) }
+                ?: RegionMetadata(bbox = bbox.get(), size = size.get())
+    }
+
+    private fun createCoveragefileMetadata(): CoveragefileMetadata {
+        val file = coverageFile.get().asFile
+        return CoveragefileMetadata(
+                file = file.name,
+                sha1 = HashUtil.sha1(file).asHexString(),
+                timestamp = OffsetDateTime.now()
+        )
+    }
+
+    private val json = Json { prettyPrint = true }
+}
+
+@Serializable
+data class CoveragefileMetadata(
+        var file: String = "",
+        val sha1: String = "",
+        val timestamp: OffsetDateTime
+)
+
+@Serializable
+data class RegionMetadata(
+        val bbox: String,
+        val size: String,
+        val coverages: MutableList<CoveragefileMetadata> = mutableListOf()
+)
+
+
+object OffsetDateTimeIso8601Serializer: KSerializer<OffsetDateTime> {
+
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("OffsetDateTime", PrimitiveKind.STRING)
+
+    override fun deserialize(decoder: Decoder): OffsetDateTime = OffsetDateTime.parse(decoder.decodeString())
+
+    override fun serialize(encoder: Encoder, value: OffsetDateTime) = encoder.encodeString(value.toString())
+
 }
