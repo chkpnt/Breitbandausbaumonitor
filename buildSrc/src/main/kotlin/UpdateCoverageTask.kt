@@ -68,6 +68,10 @@ abstract class UpdateCoverageTask : DefaultTask() {
         coverageFile.get().asFile.copyTo(newFile, overwrite = true)
         println("New coverage map overlay saved to ${newFile.relativeTo(project.projectDir)}")
 
+        // copy, not symblink, to allow better diffs in the repository
+        val latest = outputDirectory.file("latest.svg").get().asFile
+        coverageFile.get().asFile.copyTo(latest, overwrite = true)
+
         coveragefileMetadata.file = newFileName
         previousRegionMetadata.coverages.add(0, coveragefileMetadata)
         metadataFile.writeText(json.encodeToString(previousRegionMetadata))
