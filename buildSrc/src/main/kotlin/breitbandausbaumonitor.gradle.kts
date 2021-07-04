@@ -1,8 +1,11 @@
-plugins {
-    id("org.ajoberstar.git-publish")
-}
+import org.ajoberstar.gradle.git.publish.tasks.GitPublishCommit
+import org.ajoberstar.gradle.git.publish.tasks.GitPublishPush
+import org.ajoberstar.gradle.git.publish.tasks.GitPublishReset
+import org.ajoberstar.grgit.Grgit
 
-val breitbandausbaumonitorExtension = project.extensions.create<BreitbandausbaumonitorExtension>("Breitbandausbaumonitor")
+
+val extension = project.extensions.create<BreitbandausbaumonitorExtension>("Breitbandausbaumonitor")
+extension.repoDirectory.convention(project.layout.buildDirectory.dir("Breitbandausbaumonitor/repo"))
 
 tasks.withType<DownloadCoverageTask> {
     val downloadTask = this
@@ -10,35 +13,45 @@ tasks.withType<DownloadCoverageTask> {
         region.convention(downloadTask.region)
         bbox.convention(downloadTask.bbox)
         size.convention(downloadTask.size)
-        outputDirectory.convention(layout.buildDirectory)
-        doLast {
-            println("huhu " + region.get())
-        }
+        coverageFile.convention(downloadTask.destFile)
+        outputDirectory.convention(downloadTask.region.map { extension.repoDirectory.dir("regions/${it}/coverage").get() })
+        dependsOn(repoCheckoutTask)
     }
 }
 
-// Legacy:
+tasks.register("updateAllCoverageMaps") {
+    group = "Breitbandausbaumonitor"
+    description = "Update all coverage overlays in a local clone of the Breitbandausbaumonitor repository"
 
-tasks.register("downloadCurrentCoverageOverlay") {
-    outputs.dir("$buildDir")
-
-    val url = "https://t-map.telekom.de/arcgis/rest/services/public/dsl_coverage/MapServer/export?format=svg&LANGUAGE=ger&layers=show:22,23,32,33,20,21,30,31,18,19,28,29,16,26,44,45,37,38,15,25,41,42,17,27&bbox=1014071.4317625333%2C6260470.589713224%2C1018676.7627168365%2C6263308.314388386&bboxSR=3857&imageSR=3857&size=1000%2C594&f=image"
-    val destFile = file("$buildDir/coverage-tamm.svg")
-
-    doLast {
-        ant.invokeMethod("get", mapOf("src" to url, "dest" to destFile))
-    }
+    dependsOn(tasks.withType<UpdateCoverageTask>())
 }
 
-gitPublish {
-    repoUri.set(breitbandausbaumonitorExtension.repoUri)
-    branch.set(breitbandausbaumonitorExtension.branch)
-    commitMessage.set(breitbandausbaumonitorExtension.commitMessage)
-    preserve { include("**/*") }
-    contents {
-        from("$buildDir/") {
-            include("coverage-tamm.svg")
-        }
-        into(".")
-    }
+val repoCheckoutTask = tasks.register<GitPublishReset>("repoCheckout") {
+    group = "Breitbandausbaumonitor"
+    description = "Checkout ${extension.repoUri}"
+    repoDirectory.set(extension.repoDirectory)
+    repoUri.set(extension.repoUri)
+    branch.set(extension.branch)
+
+    preserve = PatternSet()
+    preserve.include("**/*")
+}
+
+tasks.register<GitPublishCommit>("repoCommit") {
+    group = "Breitbandausbaumonitor"
+    description = "Commit changes to be published to ${extension.repoUri}"
+    message.set(extension.commitMessage)
+
+    // I do not use Grgit from GitPublishReset-task as compared how it's done in the not-applied GitPublishPlugin,
+    // as I want be able to commit without resetting the repository in advance
+    val git = Grgit.open { dir = extension.repoDirectory.get().asFile }
+    grgit.set(git)
+}
+
+tasks.register<GitPublishPush>("repoPush") {
+    group = "Breitbandausbaumonitor"
+    description = "Push changes from the local Breitbandausbaumonitor repository to ${extension.repoUri}"
+    val git = Grgit.open { dir = extension.repoDirectory.get().asFile }
+    grgit.set(git)
+    branch.set(extension.branch)
 }

@@ -59,7 +59,6 @@ abstract class UpdateCoverageTask : DefaultTask() {
             return
         }
         update(coveragefileMetadata, previousRegionMetadata)
-        println(json.encodeToString(previousRegionMetadata))
     }
 
     private fun update(coveragefileMetadata: CoveragefileMetadata, previousRegionMetadata: RegionMetadata) {
