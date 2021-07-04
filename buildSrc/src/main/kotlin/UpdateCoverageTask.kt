@@ -20,6 +20,7 @@ import java.io.File
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 /**
  * Compares the downloaded svg with the latest from the corresponding folder in the
@@ -95,7 +96,7 @@ abstract class UpdateCoverageTask : DefaultTask() {
         return CoveragefileMetadata(
                 file = file.name,
                 sha1 = HashUtil.sha1(file).asHexString(),
-                timestamp = OffsetDateTime.now()
+                timestamp = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS)
         )
     }
 
