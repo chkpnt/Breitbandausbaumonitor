@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
 /**
- * Downloads an svg containing the layers of Telekom's coverage map for a specific region.
+ * Downloads an svg containing the overlay of Telekom's coverage map for a specific region.
  */
 abstract class DownloadCoverageTask : DefaultTask() {
 
@@ -45,7 +45,7 @@ abstract class DownloadCoverageTask : DefaultTask() {
 
     @TaskAction
     fun download() {
-        println("Download coverage map for ${region.get()} to ${destFile.get().asFile.relativeTo(project.projectDir)}")
+        println("Download coverage map overlay for ${region.get()} to ${destFile.get().asFile.relativeTo(project.projectDir)}")
         ant.invokeMethod("get", mapOf("src" to downloadUrl, "dest" to destFile.get()))
     }
 

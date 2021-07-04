@@ -55,7 +55,7 @@ abstract class UpdateCoverageTask : DefaultTask() {
         val coveragefileMetadata = createCoveragefileMetadata()
         val previousRegionMetadata = readPreviousRegionMetadata()
         if (!hasCoverageChanged(previousRegionMetadata, coveragefileMetadata)) {
-            println("No change in coverage map detected")
+            println("No change in coverage map overlay detected")
             return
         }
         update(coveragefileMetadata, previousRegionMetadata)
@@ -67,7 +67,7 @@ abstract class UpdateCoverageTask : DefaultTask() {
         val newFileName = "${today}.${coverageFile.get().asFile.extension}"
         val newFile = outputDirectory.file(newFileName).get().asFile
         coverageFile.get().asFile.copyTo(newFile, overwrite = true)
-        println("New coverage map saved to ${newFile.relativeTo(project.projectDir)}")
+        println("New coverage map overlay saved to ${newFile.relativeTo(project.projectDir)}")
 
         coveragefileMetadata.file = newFileName
         previousRegionMetadata.coverages.add(0, coveragefileMetadata)
