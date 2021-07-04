@@ -6,6 +6,8 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 abstract class DownloadCoverageTask : DefaultTask() {
 
@@ -20,6 +22,10 @@ abstract class DownloadCoverageTask : DefaultTask() {
 
     @get:OutputFile
     abstract val destFile: RegularFileProperty
+
+    val checkOncePerHour: LocalDateTime
+        @Input
+        get() = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS)
 
     // see https://developers.arcgis.com/rest/services-reference/enterprise/export-image.htm
     private val downloadUrl: String
@@ -40,7 +46,6 @@ abstract class DownloadCoverageTask : DefaultTask() {
 
     init {
         destFile.convention(region.map { project.layout.buildDirectory.file("coverage/${it}/latest.svg").get() })
-        outputs.upToDateWhen { false }
     }
 
     @TaskAction
