@@ -88,15 +88,17 @@ abstract class UpdateCoverageTask : DefaultTask() {
         return metadataFile.takeIf { it.exists() }
                 ?.readText()
                 ?.let { json.decodeFromString<RegionMetadata>(it) }
-                ?: RegionMetadata(bbox = bbox.get(), size = size.get())
+                ?: RegionMetadata()
     }
 
     private fun createCoveragefileMetadata(): CoveragefileMetadata {
         val file = coverageFile.get().asFile
         return CoveragefileMetadata(
+                timestamp = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS),
                 file = file.name,
                 sha1 = HashUtil.sha1(file).asHexString(),
-                timestamp = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS)
+                bbox = bbox.get(),
+                size = size.get(),
         )
     }
 
@@ -105,16 +107,16 @@ abstract class UpdateCoverageTask : DefaultTask() {
 
 @Serializable
 data class CoveragefileMetadata(
-        var file: String = "",
-        val sha1: String = "",
-        val timestamp: OffsetDateTime
+        val timestamp: OffsetDateTime,
+        var file: String,
+        val sha1: String,
+        val bbox: String,
+        val size: String,
 )
 
 @Serializable
 data class RegionMetadata(
-        val bbox: String,
-        val size: String,
-        val coverages: MutableList<CoveragefileMetadata> = mutableListOf()
+        val coverages: MutableList<CoveragefileMetadata> = mutableListOf(),
 )
 
 
