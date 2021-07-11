@@ -103,3 +103,12 @@ Then, from within your project folder:
 npm run build
 surge public my-project.surge.sh
 ```
+
+
+### Genesis of this frontend app
+
+1. Svelte-Template: https://github.com/sveltejs/template
+1. converted to TypeScript
+1. integration of Tailwind CSS
+    - https://dev.to/matebek/simplest-way-to-set-up-svelte-with-tailwind-css-41bn
+    - https://css-tricks.com/how-to-use-tailwind-on-a-svelte-site/
