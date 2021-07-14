@@ -112,3 +112,5 @@ surge public my-project.surge.sh
 1. integration of Tailwind CSS
     - https://dev.to/matebek/simplest-way-to-set-up-svelte-with-tailwind-css-41bn
     - https://css-tricks.com/how-to-use-tailwind-on-a-svelte-site/
+1. integration of Leaflet
+    - inspired by https://github.com/dimfeld/svelte-leaflet-demo (@dimfeld, MIT)
