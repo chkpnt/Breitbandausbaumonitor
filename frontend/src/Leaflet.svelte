@@ -1,7 +1,7 @@
 <script lang="typescript">
-    import { createEventDispatcher, setContext } from 'svelte';
-    import * as L from 'leaflet';
-    import 'leaflet/dist/leaflet.css';
+    import { createEventDispatcher, setContext } from "svelte";
+    import L from "leaflet";
+    import "leaflet/dist/leaflet.css";
   
     export let height = '100%';
     export let width = '100%';
@@ -17,8 +17,6 @@
     $: mapProp = map;
   
     export const getMap = () => map;
-    setContext('layerGroup', getMap);
-    setContext('layer', getMap);
     setContext('map', getMap);
   
     function createLeaflet(node: HTMLElement) {
