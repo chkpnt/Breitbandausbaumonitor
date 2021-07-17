@@ -1,0 +1,23 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["svelte3", "@typescript-eslint"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+    ],
+    "env": {
+        "browser": true
+    },
+    "ignorePatterns": ["node_modules", "dist"],
+    "overrides": [
+        {
+            "files": ["*.svelte"],
+            "processor": "svelte3/svelte3"
+        }
+    ],
+    "settings": {
+        "svelte3/typescript": true
+    }
+}
