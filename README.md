@@ -15,10 +15,10 @@ Archiviert den aktuellen Overlay der [Ausbaukarte] der Telekom für bestimmte Re
 ![Ausbaukarte Karlsruhe](overlays/Karlsruhe/latest.svg)
 
 ### Legende
-![Legende](images/Telekom-Legende.png)
+![Legende](.github/images/Telekom-Legende.png)
 
 ## Archivierung weiterer Regionen
-Wenn Du eine weitere Region archiviert haben möchtest, sende mir einfach einen Pull-Request mit einem neuen `DownloadCoverageTask` in der [build.gradle.kts](build.gradle.kts).
+Wenn Du eine weitere Region archiviert haben möchtest, sende mir einfach einen Pull-Request mit einem neuen `DownloadCoverageTask` in der [build.gradle.kts](monitor/build.gradle.kts).
 
 Für Karlsruhe ist beispielsweise folgender Task definiert:
 ```kotlin
@@ -32,7 +32,7 @@ tasks.register<DownloadCoverageTask>("downloadCoverageForKarlsruhe") {
 Die benötigten Parameter für `bbox` (_Bounding Box_) und `size` kannst Du aus dem entsprechenden Request beim Anschauen 
 der [Ausbaukarte] ermitteln:
 
-![Howto](images/howto.png)
+![Howto](.github/images/howto.png)
 
 ## Lizenz
 
