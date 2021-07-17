@@ -2,15 +2,28 @@
 	import L from "leaflet";
 	import CoverageOverlay from "./CoverageOverlay.svelte";
 	import Leaflet from "./Leaflet.svelte";
+	import Timeline from "./Timeline.svelte";
+	import type { TimelineEntry } from "./Timeline.svelte";
 	import log from "loglevel";
 
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const region = urlParams.get("region") ?? "Tamm";
-	let loaded = false;
 
 	let bbox: L.LatLngBounds | undefined = undefined;
 	let coverageOverlayUrl: string | undefined = undefined;
+
+	let regionMetadata: RegionMetadata | undefined;
+	let timelineEntries: TimelineEntry[] = [];
+	let selectedTimelineEntry: TimelineEntry | undefined;
+	$: timelineEntries = regionMetadata?.coverages
+		.map(coverage => ({ timestamp: coverage.timestamp, object: coverage })) ?? [];
+	$: {
+		log.debug("selectedTimelineEntry changed to:", selectedTimelineEntry);
+		if (selectedTimelineEntry !== undefined) {
+			initializeMap(selectedTimelineEntry.object);
+		}
+	}
 
 	function initializeMap(metadata: CoveragefileMetadata) {
 		let [east, south, west, north] = metadata.bbox.split(",").map(Number);
@@ -37,6 +50,7 @@
 		.then(res => res.json())
 		.then((data: RegionMetadata) => {
 			console.log('Output: ', data);
+			regionMetadata = data;
 			initializeMap(data.coverages[0]);
 			//initializeTimeline(data);
 		})
@@ -44,13 +58,9 @@
 
 </script>
 
-<svelte:window on:load={() => (loaded = true)} />
-
 <main class="h-screen flex flex-col">
-	<div>
-		<h1 class="text-4xl">Breitbandausbaumonitor für {region}</h1>
-		<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-	</div>
+	<h1 class="text-4xl">Breitbandausbaumonitor für {region}</h1>
+	<Timeline entries={timelineEntries} bind:selectedEntry={selectedTimelineEntry} />
 	<!-- TODO: Prüfen, was genau passiert, wenn die Condition fehlt -->
 	{#if bbox && coverageOverlayUrl}
 	<div class="h-full flex-1">
