@@ -2,6 +2,7 @@
 	import L from "leaflet";
 	import CoverageOverlay from "./CoverageOverlay.svelte";
 	import Leaflet from "./Leaflet.svelte";
+	import log from "loglevel";
 
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
@@ -39,7 +40,7 @@
 			initializeMap(data.coverages[0]);
 			//initializeTimeline(data);
 		})
-		.catch(err => console.error(err));
+		.catch(err => log.error(err));
 
 </script>
 

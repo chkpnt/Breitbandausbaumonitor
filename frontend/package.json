@@ -11,6 +11,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "@rollup/plugin-replace": "^3.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
     "@tsconfig/svelte": "^2.0.0",
     "@types/leaflet": "^1.7.4",
@@ -32,6 +33,7 @@
   },
   "dependencies": {
     "leaflet": "^1.7.1",
+    "loglevel": "^1.7.1",
     "sirv-cli": "^1.0.0"
   }
 }
