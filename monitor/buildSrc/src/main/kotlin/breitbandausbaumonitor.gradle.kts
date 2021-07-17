@@ -43,14 +43,18 @@ tasks.register<GitPublishCommit>("repoCommit") {
 
     // I do not use Grgit from GitPublishReset-task as compared how it's done in the not-applied GitPublishPlugin,
     // as I want be able to commit without resetting the repository in advance
-    val git = Grgit.open { dir = extension.repoDirectory.get().asFile }
-    grgit.set(git)
+    extension.repoDirectory.get().asFile.takeIf { it.exists() }?.let {
+        val git = Grgit.open { dir = it }
+        grgit.set(git)
+    }
 }
 
 tasks.register<GitPublishPush>("repoPush") {
     group = "Breitbandausbaumonitor"
     description = "Push changes from the local Breitbandausbaumonitor repository to ${extension.repoUri}"
-    val git = Grgit.open { dir = extension.repoDirectory.get().asFile }
-    grgit.set(git)
+    extension.repoDirectory.get().asFile.takeIf { it.exists() }?.let {
+        val git = Grgit.open { dir = it }
+        grgit.set(git)
+    }
     branch.set(extension.branch)
 }
