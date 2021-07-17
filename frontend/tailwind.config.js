@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 module.exports = {
   purge: {
     enabled: !process.env.ROLLUP_WATCH,
@@ -5,7 +7,7 @@ module.exports = {
     options: {
       defaultExtractor: content => [
         ...(content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []),
-        ...(content.match(/(?<=class:)[^=>\/\s]*/g) || []),
+        ...(content.match(/(?<=class:)[^=>/\s]*/g) || []),
       ],
     },
   },

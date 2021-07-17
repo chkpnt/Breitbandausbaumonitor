@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
@@ -8,6 +10,7 @@ import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
 import copy from 'rollup-plugin-copy';
 import replace from '@rollup/plugin-replace';
+import child_process from "child_process";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -21,7 +24,7 @@ function serve() {
 	return {
 		writeBundle() {
 			if (server) return;
-			server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+			server = child_process.spawn('npm', ['run', 'start', '--', '--dev'], {
 				stdio: ['ignore', 'inherit', 'inherit'],
 				shell: true
 			});
@@ -53,10 +56,10 @@ export default {
 				sourceMap: !production,
 				postcss: {
 					plugins: [
-					 require("tailwindcss"), 
-					 require("autoprefixer"),
+						require("tailwindcss"), 
+						require("autoprefixer"),
 					],
-				  },
+				},
 			}),
 			compilerOptions: {
 				// enable run-time checks when not in production

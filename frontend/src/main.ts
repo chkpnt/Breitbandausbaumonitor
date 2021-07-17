@@ -1,7 +1,7 @@
 import App from "./App.svelte";
 import log from "loglevel";
 
-let env = {
+const env = {
 	DEBUG: false
 }
 // env.DEBUG is replaced during rollup by @rollup/plugin-replace
