@@ -1,8 +1,8 @@
 <script context="module" lang="typescript">
-	export type TimelineEntry = {
-		timestamp: Date;
-		object: any;
-	}
+    export type TimelineEntry = {
+        timestamp: Date;
+        object: any;
+    };
 </script>
 
 <script lang="typescript">
@@ -17,6 +17,8 @@
 
 <ol>
     {#each entries as entry}
-        <li on:click="{() => select(entry)}">{entry.timestamp.toLocaleString()}</li>
+        <li on:click="{() => select(entry)}">
+            {entry.timestamp.toLocaleString()}
+        </li>
     {/each}
 </ol>
