@@ -1,6 +1,6 @@
 <script lang="typescript">
   import L from "leaflet";
-  import { getContext, setContext, onDestroy } from "svelte";
+  import { getContext } from "svelte";
   import log from "loglevel";
 
   export let url: string;

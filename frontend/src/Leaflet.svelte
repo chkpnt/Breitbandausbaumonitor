@@ -8,15 +8,13 @@
     export let bounds: L.LatLngBounds;
     let mapProp: L.Map | undefined = undefined;
     export { mapProp as map };
-  
-    export const invalidateSize = () => map?.invalidateSize();
-  
+    
     const dispatch = createEventDispatcher();
   
     let map: L.Map | undefined;
     $: mapProp = map;
   
-    export const getMap = () => map;
+    export const getMap = (): L.Map => map;
     setContext('map', getMap);
   
     function createLeaflet(node: HTMLElement) {
@@ -36,7 +34,7 @@
   
       return {
         destroy() {
-          map!.remove();
+          map?.remove();
           map = undefined;
         },
       };
