@@ -49,8 +49,17 @@
         coverages: CoveragefileMetadata[];
     };
 
+    function reviver(key, value) {
+        if (key == "timestamp") {
+            return new Date(value);
+        }
+
+        return value;
+    }
+
     fetch(`overlays/${region}/data.json`)
-        .then((res) => res.json())
+        .then((res) => res.text())
+        .then((text) => JSON.parse(text, reviver))
         .then((data: RegionMetadata) => {
             console.log("Output: ", data);
             regionMetadata = data;
