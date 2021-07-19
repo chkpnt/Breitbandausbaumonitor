@@ -13,22 +13,25 @@
     let bbox: L.LatLngBounds | undefined = undefined;
     let coverageOverlayUrl: string | undefined = undefined;
 
-    let regionMetadata: RegionMetadata | undefined;
     let timelineEntries: TimelineEntry[] = [];
     let selectedTimelineEntry: TimelineEntry | undefined;
-    $: timelineEntries =
-        regionMetadata?.coverages.map((coverage) => ({
-            timestamp: coverage.timestamp,
-            object: coverage,
-        })) ?? [];
+
     $: {
         log.debug("selectedTimelineEntry changed to:", selectedTimelineEntry);
         if (selectedTimelineEntry !== undefined) {
-            initializeMap(selectedTimelineEntry.object);
+            showCoverageOverlayFor(selectedTimelineEntry.object);
         }
     }
 
-    function initializeMap(metadata: CoveragefileMetadata) {
+    function setTimelineEntries(regionMetadata: RegionMetadata) {
+        timelineEntries = regionMetadata.coverages.map((coverage) => ({
+            timestamp: coverage.timestamp,
+            object: coverage,
+        }));
+        selectedTimelineEntry = timelineEntries[0];
+    }
+
+    function showCoverageOverlayFor(metadata: CoveragefileMetadata) {
         let [east, south, west, north] = metadata.bbox.split(",").map(Number);
 
         let crs = L.CRS.EPSG3857; // coordinate reference system
@@ -62,9 +65,7 @@
         .then((text) => JSON.parse(text, reviver))
         .then((data: RegionMetadata) => {
             console.log("Output: ", data);
-            regionMetadata = data;
-            initializeMap(data.coverages[0]);
-            //initializeTimeline(data);
+            setTimelineEntries(data);
         })
         .catch((err) => log.error(err));
 </script>

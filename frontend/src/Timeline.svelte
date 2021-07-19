@@ -19,8 +19,7 @@
     // sorted descending (the latest coverage overlay shall be the first in DOM)
     let extendedEntries: TimelineEntryWithPos[] = [];
 
-    // TODO: is called twice when an entry is selected
-    $: {
+    function initExtendedEntries() {
         let timestamps = entries.map((entry) => entry.timestamp.valueOf());
         let firstDate = Math.min(...timestamps);
         let lastDate = Math.max(...timestamps);
@@ -60,7 +59,10 @@
 
     function select(entry: TimelineEntryWithPos) {
         console.log(entry);
+        extendedEntries.forEach((it) => (it.isSelected = false));
+        entry.isSelected = true;
         selectedEntry = entries.find((it) => it.timestamp == entry.timestamp);
+        extendedEntries = extendedEntries;
     }
 
     const dateFormatter = new Intl.DateTimeFormat([], {
@@ -89,6 +91,8 @@
             return `left: calc(max(${entry.position}%, ${predecessor.position}% + 1rem, ${prepredecessor.position}% + 2rem))`;
         }
     }
+
+    initExtendedEntries();
 </script>
 
 <ol class="relative w-10/12 mx-auto h-4 mt-2 z-1000">
