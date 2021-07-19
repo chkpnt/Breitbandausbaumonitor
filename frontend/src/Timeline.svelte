@@ -12,10 +12,11 @@
     export let selectedEntry: TimelineEntry | undefined = undefined;
 
     type TimelineEntryWithPos = TimelineEntry & {
-        position: String;
+        position: number; // 0..100, percentage
         isSelected: boolean;
     };
 
+    // sorted descending (the latest coverage overlay shall be the first in DOM)
     let extendedEntries: TimelineEntryWithPos[] = [];
 
     // TODO: is called twice when an entry is selected
@@ -23,22 +24,24 @@
         let timestamps = entries.map((entry) => entry.timestamp.valueOf());
         let firstDate = Math.min(...timestamps);
         let lastDate = Math.max(...timestamps);
-        extendedEntries = entries.map((entry) => {
-            let position = toRelativePositionOf(
-                entry.timestamp.valueOf(),
-                firstDate,
-                lastDate,
-            );
-            log.debug(
-                `Position of ${entry.timestamp} between ${firstDate} and ${lastDate}: ${position}`,
-            );
-            return {
-                timestamp: entry.timestamp,
-                position: position,
-                isSelected: entry.timestamp == selectedEntry?.timestamp,
-                object: entry.object,
-            };
-        });
+        extendedEntries = entries
+            .map((entry) => {
+                let position = toRelativePositionOf(
+                    entry.timestamp.valueOf(),
+                    firstDate,
+                    lastDate,
+                );
+                log.debug(
+                    `Position of ${entry.timestamp} between ${firstDate} and ${lastDate}: ${position}`,
+                );
+                return {
+                    timestamp: entry.timestamp,
+                    position: position,
+                    isSelected: entry.timestamp == selectedEntry?.timestamp,
+                    object: entry.object,
+                };
+            })
+            .sort((a, b) => b.timestamp.valueOf() - a.timestamp.valueOf());
         log.debug("extendedEntries", extendedEntries);
     }
 
@@ -46,13 +49,13 @@
         value: number,
         from: number,
         until: number,
-    ): String {
+    ): number {
         let interval = until - from;
         if (interval == 0) {
-            return "0%";
+            return 0;
         }
         let relativePosition = (value - from) / interval;
-        return `${Math.round(relativePosition * 10_000) / 100}%`;
+        return Math.round(relativePosition * 10_000) / 100;
     }
 
     function select(entry: TimelineEntryWithPos) {
@@ -65,15 +68,36 @@
         month: "2-digit",
         day: "2-digit",
     });
+
+    function cssLeftPosition(
+        entry: TimelineEntryWithPos,
+        index: number,
+    ): string {
+        if (entry.position == 0) {
+            return "left: 0%";
+        }
+
+        // this should prevent most cases of overlapping timeline entries:
+
+        let predecessor = extendedEntries[index + 1]; // index 0 is the latest entry
+        let prepredecessor = extendedEntries[index + 2]; // index 0 is the latest entry
+
+        // Tailwind's spacing 4 = 1rem
+        if (prepredecessor === undefined) {
+            return `left: calc(max(${entry.position}%, ${predecessor.position}% + 1rem))`;
+        } else {
+            return `left: calc(max(${entry.position}%, ${predecessor.position}% + 1rem, ${prepredecessor.position}% + 2rem))`;
+        }
+    }
 </script>
 
 <ol class="relative w-10/12 mx-auto h-4 mt-2 z-1000">
     <div class="timeline"></div>
-    {#each extendedEntries as entry (entry.timestamp)}
+    {#each extendedEntries as entry, index (entry.timestamp)}
         <li
             on:click="{() => select(entry)}"
             class="{entry.isSelected ? 'selected' : ''}"
-            style="left:{entry.position}"
+            style="{cssLeftPosition(entry, index)}"
         >
             <div class="circle cursor-pointer"></div>
             <div class="badge rotate-around-circle">
