@@ -70,7 +70,7 @@
 </script>
 
 <main class="h-screen flex flex-col">
-    <h1 class="text-4xl">Breitbandausbaumonitor für {region}</h1>
+    <h1 class="text-xl sm:text-4xl">Breitbandausbaumonitor für {region}</h1>
 
     <!-- TODO: Prüfen, was genau passiert, wenn die Condition fehlt -->
     {#if bbox && coverageOverlayUrl}

@@ -134,7 +134,7 @@
 
     .badge {
         @apply absolute bottom-0 left-full h-5 leading-5 ml-1.5 pl-1 pr-2;
-        @apply rounded-l rounded-r-full bg-gray-300 bg-opacity-50;
+        @apply rounded-l rounded-r-full bg-red-50 bg-opacity-60;
         @apply shadow-md;
     }
     .selected > .badge {
