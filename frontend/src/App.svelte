@@ -71,14 +71,15 @@
 
 <main class="h-screen flex flex-col">
     <h1 class="text-4xl">Breitbandausbaumonitor für {region}</h1>
-    <Timeline
-        entries="{timelineEntries}"
-        bind:selectedEntry="{selectedTimelineEntry}"
-    />
+
     <!-- TODO: Prüfen, was genau passiert, wenn die Condition fehlt -->
     {#if bbox && coverageOverlayUrl}
         <div class="h-full flex-1">
             <Leaflet bounds="{bbox}">
+                <Timeline
+                    entries="{timelineEntries}"
+                    bind:selectedEntry="{selectedTimelineEntry}"
+                />
                 <CoverageOverlay url="{coverageOverlayUrl}" bbox="{bbox}" />
             </Leaflet>
         </div>
