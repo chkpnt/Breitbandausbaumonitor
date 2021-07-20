@@ -95,23 +95,28 @@
     initExtendedEntries();
 </script>
 
-<ol class="relative w-10/12 mx-auto h-4 mt-2 z-1000">
-    <div class="timeline"></div>
-    {#each extendedEntries as entry, index (entry.timestamp)}
-        <li
-            on:click="{() => select(entry)}"
-            class="{entry.isSelected ? 'selected' : ''}"
-            style="{cssLeftPosition(entry, index)}"
-        >
-            <div class="circle cursor-pointer"></div>
-            <div class="badge rotate-around-circle">
-                {dateFormatter.format(entry.timestamp)}
-            </div>
-        </li>
-    {/each}
-</ol>
+<div class="timeline-container">
+    <ol>
+        <div class="timeline"></div>
+        {#each extendedEntries as entry, index (entry.timestamp)}
+            <li
+                on:click="{() => select(entry)}"
+                class="{entry.isSelected ? 'selected' : ''}"
+                style="{cssLeftPosition(entry, index)}"
+            >
+                <div class="circle cursor-pointer"></div>
+                <div class="badge rotate-around-circle">
+                    {dateFormatter.format(entry.timestamp)}
+                </div>
+            </li>
+        {/each}
+    </ol>
+</div>
 
 <style lang="postcss">
+    .timeline-container {
+        @apply relative w-10/12 mx-auto h-4 mt-2 z-1000;
+    }
     .timeline {
         @apply bg-red-600 h-0.5 inset-x-0 absolute bottom-2 transform translate-y-1/2;
         @apply shadow-md;
@@ -140,17 +145,30 @@
         @apply absolute bottom-0 left-full h-5 leading-5 ml-1.5 pl-1 pr-2;
         @apply rounded-l rounded-r-full bg-red-50 bg-opacity-60;
         @apply shadow-md;
+        @apply z-0;
     }
     .selected > .badge {
         @apply font-semibold;
     }
     .badge.rotate-around-circle {
-        @apply transform rotate-45;
-
         /* origin shall be the center of the circle */
         transform-origin: calc(
                 -1 * (theme("spacing[1.5]") + theme("spacing[4]") / 2)
             )
             center;
+    }
+    .badge.rotate-around-circle {
+        @apply transform rotate-45;
+    }
+    @media (min-height: 600px) {
+        .timeline-container {
+            @apply mt-16;
+        }
+        li:nth-child(odd) > .badge.rotate-around-circle {
+            @apply transform rotate-45;
+        }
+        li:nth-child(even) > .badge.rotate-around-circle {
+            @apply transform -rotate-45;
+        }
     }
 </style>
