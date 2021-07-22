@@ -18,7 +18,7 @@ Archives the current overlay for landline data transmission technologies of Deut
 ![Legende](.github/images/Telekom-Legende.png)
 
 ## Archiving other regions
-Just open a pull request with a new `DownloadCoverageTask` in [build.gradle.kts](monitor/build.gradle.kts).
+Just open a pull request with a new `DownloadCoverageTask` in [build.gradle.kts](archiver/build.gradle.kts).
 
 For example, the following task is used to fetch the coverage overlay for _Karlsruhe_:
 ```kotlin
