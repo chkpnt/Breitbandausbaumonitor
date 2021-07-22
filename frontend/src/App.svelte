@@ -3,6 +3,7 @@
     import CoverageOverlay from "./CoverageOverlay.svelte";
     import Leaflet from "./Leaflet.svelte";
     import Timeline from "./Timeline.svelte";
+    import GitHubCorner from "./GitHubCorner.svelte";
     import type { TimelineEntry } from "./Timeline.svelte";
     import log from "loglevel";
 
@@ -71,7 +72,11 @@
 </script>
 
 <main class="h-screen flex flex-col">
-    <h1 class="text-xl sm:text-4xl">Breitbandausbaumonitor für {region}</h1>
+    <h1 class="text-xl sm:text-4xl m-2">
+        Breitbandausbaumonitor für {region}
+    </h1>
+
+    <GitHubCorner />
 
     <!-- TODO: Prüfen, was genau passiert, wenn die Condition fehlt -->
     {#if bbox && coverageOverlayUrl}
