@@ -5,7 +5,16 @@ This project is used to archive the current overlay for landline data transmissi
 The application is a simple [Gradle](https://gradle.org/) plugin written in [Kotlin](https://kotlinlang.org/) and [Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html).
 The source code is located in [buildSrc/src/main/kotlin/](buildSrc/src/main/kotlin/).
 
-The plugin registers an extension `Breitbandausbaumonitor` which is used to configure the repository in which the overlays are archived.
+The plugin registers an extension `Breitbandausbaumonitor` which is used to configure the repository in which the overlays are archived:
+```kotlin
+Breitbandausbaumonitor {
+    repoUri.set("git@github.com:chkpnt/Breitbandausbaumonitor.git")
+    branch.set("main")
+    commitMessage.set("Update coverage")
+    archiveDirectory.set("overlays")
+}
+```
+
 The plugin registers the following self-describing tasks:
 - `repoCheckout`
 - `repoCommit`
