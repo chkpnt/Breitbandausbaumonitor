@@ -6,6 +6,7 @@ Breitbandausbaumonitor {
     repoUri.set("git@github.com:chkpnt/Breitbandausbaumonitor.git")
     branch.set("main")
     commitMessage.set("Update coverage")
+    archiveDirectory.set("overlays")
 }
 
 tasks.register<DownloadCoverageTask>("downloadCoverageForTamm") {

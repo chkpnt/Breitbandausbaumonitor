@@ -5,5 +5,6 @@ interface BreitbandausbaumonitorExtension {
     val repoUri: Property<String>
     val branch: Property<String>
     val commitMessage: Property<String>
-    val repoDirectory: DirectoryProperty
+    val archiveDirectory: Property<String>
+    val checkoutDirectory: DirectoryProperty
 }

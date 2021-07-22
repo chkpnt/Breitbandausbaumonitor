@@ -4,7 +4,7 @@ import org.ajoberstar.gradle.git.publish.tasks.GitPublishReset
 import org.ajoberstar.grgit.Grgit
 
 val extension = project.extensions.create<BreitbandausbaumonitorExtension>("Breitbandausbaumonitor")
-extension.repoDirectory.convention(project.layout.buildDirectory.dir("Breitbandausbaumonitor/repo"))
+extension.checkoutDirectory.convention(project.layout.buildDirectory.dir("Breitbandausbaumonitor/repo"))
 
 tasks.withType<DownloadCoverageTask> {
     val downloadTask = this
@@ -13,7 +13,7 @@ tasks.withType<DownloadCoverageTask> {
         bbox.convention(downloadTask.bbox)
         size.convention(downloadTask.size)
         coverageFile.convention(downloadTask.destFile)
-        outputDirectory.convention(downloadTask.region.map { extension.repoDirectory.dir("overlays/${it}").get() })
+        outputDirectory.convention(downloadTask.region.map { extension.checkoutDirectory.dir("${extension.archiveDirectory.get()}/${it}").get() })
         dependsOn(repoCheckoutTask)
     }
 }
@@ -28,7 +28,7 @@ tasks.register("updateAllCoverageMaps") {
 val repoCheckoutTask = tasks.register<GitPublishReset>("repoCheckout") {
     group = "Breitbandausbaumonitor"
     description = "Checkout ${extension.repoUri.get()}"
-    repoDirectory.set(extension.repoDirectory)
+    repoDirectory.set(extension.checkoutDirectory)
     repoUri.set(extension.repoUri)
     branch.set(extension.branch)
 
@@ -43,7 +43,7 @@ tasks.register<GitPublishCommit>("repoCommit") {
 
     // I do not use Grgit from GitPublishReset-task as compared how it's done in the not-applied GitPublishPlugin,
     // as I want be able to commit without resetting the repository in advance
-    extension.repoDirectory.get().asFile.takeIf { it.exists() }?.let {
+    extension.checkoutDirectory.get().asFile.takeIf { it.exists() }?.let {
         val git = Grgit.open { dir = it }
         grgit.set(git)
     }
@@ -52,7 +52,7 @@ tasks.register<GitPublishCommit>("repoCommit") {
 tasks.register<GitPublishPush>("repoPush") {
     group = "Breitbandausbaumonitor"
     description = "Push changes from the local Breitbandausbaumonitor repository to ${extension.repoUri.get()}"
-    extension.repoDirectory.get().asFile.takeIf { it.exists() }?.let {
+    extension.checkoutDirectory.get().asFile.takeIf { it.exists() }?.let {
         val git = Grgit.open { dir = it }
         grgit.set(git)
     }
