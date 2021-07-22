@@ -10,8 +10,8 @@ Breitbandausbaumonitor {
 
 tasks.register<DownloadCoverageTask>("downloadCoverageForTamm") {
     region.set("Tamm")
-    bbox.set("1014071.4317625333,6260470.589713224,1018676.7627168365,6263308.314388386")
-    size.set("1000,594")
+    bbox.set("1013726.978375079,6263340.8666584315,1019005.910641024,6260297.717469827")
+    size.set("1105,637")
 }
 
 tasks.register<DownloadCoverageTask>("downloadCoverageForKarlsruhe") {
