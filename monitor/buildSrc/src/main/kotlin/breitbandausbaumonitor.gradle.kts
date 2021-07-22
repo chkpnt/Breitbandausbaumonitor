@@ -27,7 +27,7 @@ tasks.register("updateAllCoverageMaps") {
 
 val repoCheckoutTask = tasks.register<GitPublishReset>("repoCheckout") {
     group = "Breitbandausbaumonitor"
-    description = "Checkout ${extension.repoUri}"
+    description = "Checkout ${extension.repoUri.get()}"
     repoDirectory.set(extension.repoDirectory)
     repoUri.set(extension.repoUri)
     branch.set(extension.branch)
@@ -38,7 +38,7 @@ val repoCheckoutTask = tasks.register<GitPublishReset>("repoCheckout") {
 
 tasks.register<GitPublishCommit>("repoCommit") {
     group = "Breitbandausbaumonitor"
-    description = "Commit changes to be published to ${extension.repoUri}"
+    description = "Commit changes to be published to ${extension.repoUri.get()}"
     message.set(extension.commitMessage)
 
     // I do not use Grgit from GitPublishReset-task as compared how it's done in the not-applied GitPublishPlugin,
@@ -51,7 +51,7 @@ tasks.register<GitPublishCommit>("repoCommit") {
 
 tasks.register<GitPublishPush>("repoPush") {
     group = "Breitbandausbaumonitor"
-    description = "Push changes from the local Breitbandausbaumonitor repository to ${extension.repoUri}"
+    description = "Push changes from the local Breitbandausbaumonitor repository to ${extension.repoUri.get()}"
     extension.repoDirectory.get().asFile.takeIf { it.exists() }?.let {
         val git = Grgit.open { dir = it }
         grgit.set(git)
