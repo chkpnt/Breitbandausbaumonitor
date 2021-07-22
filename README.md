@@ -2,25 +2,25 @@
 [![License](https://img.shields.io/github/license/chkpnt/Breitbandausbau.svg?label=License)](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)) 
 [![auto-updating coverage](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-coverage.yml/badge.svg)](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-coverage.yml)
 
-Archiviert den aktuellen Overlay der [Ausbaukarte] der Telekom für bestimmte Regionen:
+Archives the current overlay for landline data transmission technologies of Deutsche Telekom's [coverage map] in specific regions on a daily basis:
 
-- Tamm: seit 14.03.2021
-- Karlsruhe: seit 04.07.2021
+- Tamm: since March 14, 2021
+- Karlsruhe: since Juli 04, 2021
 
-## Aktueller Stand
+## Current status
 ### Tamm
 ![Ausbaukarte Tamm](overlays/Tamm/latest.svg)
 
 ### Karlsruhe
 ![Ausbaukarte Karlsruhe](overlays/Karlsruhe/latest.svg)
 
-### Legende
+### Legend
 ![Legende](.github/images/Telekom-Legende.png)
 
-## Archivierung weiterer Regionen
-Wenn Du eine weitere Region archiviert haben möchtest, sende mir einfach einen Pull-Request mit einem neuen `DownloadCoverageTask` in der [build.gradle.kts](monitor/build.gradle.kts).
+## Archiving other regions
+Just open a pull request with a new `DownloadCoverageTask` in [build.gradle.kts](monitor/build.gradle.kts).
 
-Für Karlsruhe ist beispielsweise folgender Task definiert:
+For example, the following task is used to fetch the coverage overlay for _Karlsruhe_:
 ```kotlin
 tasks.register<DownloadCoverageTask>("downloadCoverageForKarlsruhe") {
     region.set("Karlsruhe")
@@ -29,15 +29,17 @@ tasks.register<DownloadCoverageTask>("downloadCoverageForKarlsruhe") {
 }
 ```
 
-Die benötigten Parameter für `bbox` (_Bounding Box_) und `size` kannst Du aus dem entsprechenden Request beim Anschauen 
-der [Ausbaukarte] ermitteln:
+The required parameters for `bbox` (_Bounding Box_) and `size` can be determined from the corresponding request when viewing the 
+the [coverage map]:
 
 ![Howto](.github/images/howto.png)
 
-## Lizenz
+Please do not try to cover too large areas, as the file size of the downloaded SVG grows quickly.
 
-Für den Code innerhalb des Repositorys: Apache-2.0
+## License
 
-(natürlich nicht für die heruntergeladenen SVGs und die Legende)
+For the source code within this repository: Apache-2.0
 
-[Ausbaukarte]: https://t-map.telekom.de/tmap2/coverage_checker/?initLayerGroup=fixedline&initLayerIds=coverage5G,coverageVDSL50,coverageVDSL100,coverageVDSL250,coverageGlasfaser1000,coveragePlanned
+(of course not for the archived SVGs and the legend)
+
+[coverage map]: https://t-map.telekom.de/tmap2/coverage_checker/?initLayerGroup=fixedline&initLayerIds=coverage5G,coverageVDSL50,coverageVDSL100,coverageVDSL250,coverageGlasfaser1000,coveragePlanned
