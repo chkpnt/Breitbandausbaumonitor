@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-coverage:
+  update-frontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,4 +19,15 @@ jobs:
 
       - name: Build front end
         run: ./gradlew buildFrontend
-      
+
+      - uses: webfactory/ssh-agent@v0.5.1
+        with:
+          ssh-private-key: ${{ secrets.WORKFLOW_SSH_KEY }}
+
+      - name: Set Git author information
+        run: |
+          git config --global user.name "chkpnt CI"
+          git config --global user.email "chkpnt-ci@chkpnt.de"
+
+      - name: Publish front end to GitHub Pages
+        run: ./gradlew frontend:gitPublishPush

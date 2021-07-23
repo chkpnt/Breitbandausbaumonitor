@@ -7,7 +7,7 @@ plugins {
 Breitbandausbaumonitor {
     repoUri.set("git@github.com:chkpnt/Breitbandausbaumonitor.git")
     branch.set("main")
-    commitMessage.set("Update coverage")
+    commitMessage.set("Update coverage overlay")
     archiveDirectory.set("overlays")
 }
 
