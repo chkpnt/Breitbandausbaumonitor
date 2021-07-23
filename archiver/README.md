@@ -1,9 +1,7 @@
-# Breitbandausbaumonitor
+# Breitbandausmonitor (Gradle Plugin)
 
-This project is used to archive the current overlay for landline data transmission technologies of Deutsche Telekom's [coverage map] in specific regions.
-
-The application is a simple [Gradle](https://gradle.org/) plugin written in [Kotlin](https://kotlinlang.org/) and [Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html).
-The source code is located in [buildSrc/src/main/kotlin/](buildSrc/src/main/kotlin/).
+This [Gradle](https://gradle.org/) plugin written in [Kotlin](https://kotlinlang.org/) and [Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
+is used by the project [Breitbandausbaumonitor](https://github.com/chkpnt/Breitbandausbaumonitor/).
 
 The plugin registers an extension `Breitbandausbaumonitor` which is used to configure the repository in which the overlays are archived:
 ```kotlin

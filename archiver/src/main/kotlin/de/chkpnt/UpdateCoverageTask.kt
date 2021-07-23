@@ -1,5 +1,6 @@
 @file:UseSerializers(OffsetDateTimeIso8601Serializer::class)
 
+package de.chkpnt
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor

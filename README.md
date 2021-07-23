@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/github/license/chkpnt/Breitbandausbau.svg?label=License)](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)) 
 [![auto-updating coverage](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-coverage.yml/badge.svg)](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-coverage.yml)
 
-Archives the current overlay for landline data transmission technologies of Deutsche Telekom's [coverage map] in specific regions on a daily basis:
+This project is used to archive the current overlay for landline data transmission technologies of Deutsche Telekom's [coverage map] in specific regions on a daily basis:
 
 - Tamm: since March 14, 2021
 - Karlsruhe: since Juli 04, 2021
@@ -18,7 +18,7 @@ Archives the current overlay for landline data transmission technologies of Deut
 ![Legende](.github/images/Telekom-Legende.png)
 
 ## Archiving other regions
-Just open a pull request with a new `DownloadCoverageTask` in [build.gradle.kts](archiver/build.gradle.kts).
+Just open a pull request with a new `DownloadCoverageTask` in [build.gradle.kts](build.gradle.kts).
 
 For example, the following task is used to fetch the coverage overlay for _Karlsruhe_:
 ```kotlin
