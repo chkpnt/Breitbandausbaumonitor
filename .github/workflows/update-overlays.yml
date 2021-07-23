@@ -1,4 +1,4 @@
-name: auto-updating coverage overlays
+name: update overlays
 
 on:
   schedule:
