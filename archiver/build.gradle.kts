@@ -38,6 +38,5 @@ sonarqube {
         property("sonar.host.url", "https://sonar.chkpnt.de")
         property("sonar.login", System.getenv("SONARQUBE_TOKEN"))
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
-        property("sonar.jacoco.reportPath", "")
     }
 }
