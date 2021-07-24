@@ -1,6 +1,8 @@
 plugins {
     `kotlin-dsl`
     kotlin("plugin.serialization") version embeddedKotlinVersion
+    jacoco
+    id("org.sonarqube") version "3.3"
 }
 
 repositories {
@@ -21,5 +23,21 @@ dependencies {
 tasks {
     test {
         useJUnitPlatform()
+        finalizedBy(jacocoTestReport)
+    }
+    jacocoTestReport {
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+    }
+}
+
+sonarqube {
+    properties {
+        property("sonar.host.url", "https://sonar.chkpnt.de")
+        property("sonar.login", System.getenv("SONARQUBE_TOKEN"))
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+        property("sonar.jacoco.reportPath", "")
     }
 }

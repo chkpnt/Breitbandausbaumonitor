@@ -78,7 +78,6 @@ internal class UpdateCoverageTaskTest {
 
         sut.updateIfNecessary()
 
-        println(existingRegionOutputDir.resolve("data.json").readText())
         assertThat(existingRegionOutputDir.resolve("data.json").readText()).isEqualTo(
             """
             {

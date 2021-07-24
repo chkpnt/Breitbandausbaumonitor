@@ -10,6 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run tests for Gradle plugin breitbandausbaumonitor-archiver
-        run: ./gradlew test
+      - name: Run tests and checks for Gradle plugin breitbandausbaumonitor-archiver
+        run: ./gradlew check
+        working-directory: archiver
+
+      - name: SonarQube analysis
+        run: ./gradlew sonarqube
+        env:
+          SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
         working-directory: archiver

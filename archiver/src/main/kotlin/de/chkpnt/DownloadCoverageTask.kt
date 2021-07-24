@@ -4,6 +4,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import java.net.URI
@@ -27,6 +28,7 @@ abstract class DownloadCoverageTask : DefaultTask() {
     @get:OutputFile
     abstract val destFile: RegularFileProperty
 
+    @get:Internal
     internal abstract val endpoint: Property<URI>
 
     val checkOncePerHour: LocalDateTime
