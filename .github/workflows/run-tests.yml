@@ -16,8 +16,13 @@ jobs:
         run: ./gradlew check
         working-directory: archiver
 
-      - name: SonarQube analysis
+      - name: SonarQube analysis (archiver)
         run: ./gradlew sonarqube
         env:
           SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
         working-directory: archiver
+
+      - name: SonarQube analysis (front end)
+        run: ./gradlew frontend:sonarqube
+        env:
+          SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}

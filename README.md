@@ -4,8 +4,9 @@
 [![update overlays](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-overlays.yml/badge.svg)](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-overlays.yml)
 [![update frontend](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-frontend.yml/badge.svg)](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-frontend.yml)
 [![run tests](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/run-tests.yml/badge.svg)](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/run-tests.yml) <br>
-[![SonarQube](https://img.shields.io/badge/SonarQube-archiver-blue.svg)](https://sonar.chkpnt.de/dashboard?id=breitbandausbaumonitor-archiver)
-[![SonarQube](https://img.shields.io/badge/SonarQube-front%20end-blue.svg)](https://sonar.chkpnt.de/dashboard?id=breitbandausbaumonitor-frontend)
+[![SonarQube](https://img.shields.io/badge/SonarQube-%40sonar.chkpnt.de-inactive)](https://github.com/chkpnt/Breitbandausbaumonitor/actions)
+[![SonarQube](https://img.shields.io/badge/archiver-analysis-blue.svg)](https://sonar.chkpnt.de/dashboard?id=breitbandausbaumonitor-archiver)
+[![SonarQube](https://img.shields.io/badge/front%20end-analysis-blue.svg)](https://sonar.chkpnt.de/dashboard?id=breitbandausbaumonitor-frontend)
 <!-- doens't work at the moment: https://github.com/badges/shields/issues/5882 [![Tests](https://img.shields.io/sonar/tests/breitbandausbaumonitor-archiver?label=Tests&server=https%3A%2F%2Fsonar.chkpnt.de)](https://sonar.chkpnt.de/component_measures?id=breitbandausbaumonitor-archiver&metric=tests&view=list) -->
 
 This project is used to archive the current overlay for landline data transmission technologies of Deutsche Telekom's [coverage map] in specific regions on a daily basis:
