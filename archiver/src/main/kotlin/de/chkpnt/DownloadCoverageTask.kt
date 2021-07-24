@@ -6,6 +6,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
+import java.net.URI
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
@@ -26,6 +27,8 @@ abstract class DownloadCoverageTask : DefaultTask() {
     @get:OutputFile
     abstract val destFile: RegularFileProperty
 
+    internal abstract val endpoint: Property<URI>
+
     val checkOncePerHour: LocalDateTime
         @Input
         get() = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS)
@@ -33,23 +36,25 @@ abstract class DownloadCoverageTask : DefaultTask() {
     // For the syntax see https://developers.arcgis.com/rest/services-reference/enterprise/export-map.htm
     // example: https://t-map.telekom.de/arcgis/rest/services/public/dsl_coverage/MapServer/export?format=svg&LANGUAGE=ger&layers=show:22,23,32,33,20,21,30,31,18,19,28,29,16,26,44,45,37,38,15,25,41,42,17,27&bbox=1014071.4317625333,6260470.589713224,1018676.7627168365,6263308.314388386&bboxSR=3857&imageSR=3857&size=1000,594&transparent=true&f=image
     private val downloadUrl: String
-        get() = "https://t-map.telekom.de/arcgis/rest/services/public/dsl_coverage/MapServer/export?" +
+        get() = endpoint.get().resolve("/arcgis/rest/services/public/dsl_coverage/MapServer/export?" +
                 "format=svg&LANGUAGE=ger&layers=show:${Constants.ALL_LAYERS}" +
                 "&bbox=${bbox.get()}" +
                 "&bboxSR=${Constants.BBOX_SR}" +
                 "&imageSR=${Constants.IMAGE_SR}" +
                 "&size=${size.get()}" +
                 "&transparent=true" +
-                "&f=image"
+                "&f=image").toString()
 
     init {
         group = "Breitbandausbaumonitor"
         destFile.convention(region.map { project.layout.buildDirectory.file("Breitbandausbaumonitor/coverage/${it}/latest.svg").get() })
+        endpoint.convention(URI.create("https://t-map.telekom.de"))
     }
 
     @TaskAction
     fun download() {
         println("Download coverage map overlay for ${region.get()} to ${destFile.get().asFile.relativeTo(project.projectDir)}")
+        destFile.get().asFile.parentFile.mkdirs()
         ant.invokeMethod("get", mapOf("src" to downloadUrl, "dest" to destFile.get()))
     }
 

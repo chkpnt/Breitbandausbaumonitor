@@ -12,10 +12,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.provider.ProviderFactory
+import org.gradle.api.tasks.*
 import org.gradle.internal.hash.HashUtil
 import java.io.File
 import java.time.LocalDate
@@ -45,11 +43,15 @@ abstract class UpdateCoverageTask : DefaultTask() {
     @get:OutputDirectory
     abstract val outputDirectory: DirectoryProperty
 
+    @get:Internal
+    internal abstract val timestamp: Property<OffsetDateTime>
+
     private val metadataFile: File
         get() = outputDirectory.file("data.json").get().asFile
 
     init {
         group = "Breitbandausbaumonitor"
+        timestamp.convention(project.providers.provider { OffsetDateTime.now() })
     }
 
     @TaskAction
@@ -64,7 +66,7 @@ abstract class UpdateCoverageTask : DefaultTask() {
     }
 
     private fun update(coveragefileMetadata: CoveragefileMetadata, previousRegionMetadata: RegionMetadata) {
-        val today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val today = timestamp.get().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         val newFileName = "${today}.${coverageFile.get().asFile.extension}"
         val newFile = outputDirectory.file(newFileName).get().asFile
         coverageFile.get().asFile.copyTo(newFile, overwrite = true)
@@ -95,7 +97,7 @@ abstract class UpdateCoverageTask : DefaultTask() {
     private fun createCoveragefileMetadata(): CoveragefileMetadata {
         val file = coverageFile.get().asFile
         return CoveragefileMetadata(
-                timestamp = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS),
+                timestamp = timestamp.get().truncatedTo(ChronoUnit.SECONDS),
                 file = file.name,
                 sha1 = HashUtil.sha1(file).asHexString(),
                 bbox = bbox.get(),
