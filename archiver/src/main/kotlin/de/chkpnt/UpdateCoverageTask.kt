@@ -115,6 +115,7 @@ data class CoveragefileMetadata(
         val sha1: String,
         val bbox: String,
         val size: String,
+        val comment: String? = null,
 )
 
 @Serializable

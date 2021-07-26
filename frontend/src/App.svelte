@@ -27,6 +27,7 @@
     function setTimelineEntries(regionMetadata: RegionMetadata) {
         timelineEntries = regionMetadata.coverages.map((coverage) => ({
             timestamp: coverage.timestamp,
+            comment: coverage.comment,
             object: coverage,
         }));
         selectedTimelineEntry = timelineEntries[0];
@@ -47,6 +48,7 @@
         timestamp: Date;
         file: string;
         bbox: string;
+        comment: string | null;
     };
 
     type RegionMetadata = {

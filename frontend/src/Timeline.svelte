@@ -1,6 +1,7 @@
 <script context="module" lang="typescript">
     export type TimelineEntry = {
         timestamp: Date;
+        comment: string | null;
         object: any;
     };
 </script>
@@ -35,6 +36,7 @@
                 );
                 return {
                     timestamp: entry.timestamp,
+                    comment: entry.comment,
                     position: position,
                     isSelected: entry.timestamp == selectedEntry?.timestamp,
                     object: entry.object,
@@ -100,11 +102,16 @@
         <div class="timeline"></div>
         {#each extendedEntries as entry, index (entry.timestamp)}
             <li
-                on:click="{() => select(entry)}"
                 class="{entry.isSelected ? 'selected' : ''}"
                 style="{cssLeftPosition(entry, index)}"
             >
-                <div class="circle cursor-pointer"></div>
+                <!-- TODO: lang (needed for hyphenation) should come from comment -->
+                <div
+                    class="circle cursor-pointer"
+                    on:click="{() => select(entry)}"
+                    lang="de"
+                    data-tooltip="{entry.comment}"
+                ></div>
                 <div class="badge rotate-around-circle">
                     {dateFormatter.format(entry.timestamp)}
                 </div>
@@ -139,6 +146,23 @@
     }
     .circle:hover {
         @apply bg-red-600;
+    }
+    [data-tooltip] {
+        @apply relative;
+        @apply table; /* so that top:100% in [data-tooltip]:after is relative to the border-box */
+    }
+    [data-tooltip]::after {
+        @apply invisible transition-all ease-out delay-200 duration-200;
+        @apply absolute w-40 mt-2 top-full px-2 py-1.5;
+        @apply left-1/2 transform -translate-x-1/2;
+        @apply bg-gray-50 bg-opacity-90;
+        @apply shadow-lg rounded-lg;
+        @apply z-50;
+        content: attr(data-tooltip);
+        hyphens: auto;
+    }
+    [data-tooltip]:hover::after {
+        @apply visible;
     }
 
     .badge {

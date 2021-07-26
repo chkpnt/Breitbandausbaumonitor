@@ -94,7 +94,8 @@ internal class UpdateCoverageTaskTest {
                         "file": "2021-01-01.svg",
                         "sha1": "f1ab400082758f5cff416651d2c84b48db8c8c4",
                         "bbox": "1000000.01,6000000.01,1002000.01,6002000.01",
-                        "size": "1000,600"
+                        "size": "1000,600",
+                        "comment": "first map"
                     }
                 ]
             }
@@ -116,7 +117,8 @@ internal class UpdateCoverageTaskTest {
                         "file": "2021-01-01.svg",
                         "sha1": "f1ab400082758f5cff416651d2c84b48db8c8c4",
                         "bbox": "1000000.01,6000000.01,1002000.01,6002000.01",
-                        "size": "1000,600"
+                        "size": "1000,600",
+                        "comment": "first map"
                     }
                 ]
             }
