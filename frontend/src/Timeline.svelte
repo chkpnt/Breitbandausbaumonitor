@@ -121,9 +121,18 @@
 </div>
 
 <style lang="postcss">
-    .timeline-container {
-        @apply relative w-10/12 mx-auto h-4 mt-2 z-1000;
+    :root {
+        --tooltip-width: 10rem;
     }
+
+    .timeline-container {
+        @apply absolute mx-auto h-4 mt-2;
+        @apply z-1000;
+        /* so the tooltip keeps in the viewport */
+        left: calc(max(8%, calc(var(--tooltip-width) / 2)));
+        right: calc(max(8%, calc(var(--tooltip-width) / 2)));
+    }
+
     .timeline {
         @apply bg-red-600 h-0.5 inset-x-0 absolute bottom-2 transform translate-y-1/2;
         @apply shadow-md;
@@ -158,6 +167,7 @@
         @apply bg-gray-50 bg-opacity-90;
         @apply shadow-lg rounded-lg;
         @apply z-50;
+        width: var(--tooltip-width);
         content: attr(data-tooltip);
         hyphens: auto;
     }
