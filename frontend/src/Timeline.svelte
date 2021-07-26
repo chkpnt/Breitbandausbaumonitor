@@ -98,26 +98,32 @@
 </script>
 
 <div class="timeline-container">
-    <ol>
-        <div class="timeline"></div>
-        {#each extendedEntries as entry, index (entry.timestamp)}
-            <li
-                class="{entry.isSelected ? 'selected' : ''}"
-                style="{cssLeftPosition(entry, index)}"
-            >
-                <!-- TODO: lang (needed for hyphenation) should come from comment -->
-                <div
-                    class="circle cursor-pointer"
-                    on:click="{() => select(entry)}"
-                    lang="de"
-                    data-tooltip="{entry.comment}"
-                ></div>
-                <div class="badge rotate-around-circle">
-                    {dateFormatter.format(entry.timestamp)}
-                </div>
-            </li>
-        {/each}
-    </ol>
+    {#if extendedEntries.length > 1}
+        <ol>
+            <div class="timeline"></div>
+            {#each extendedEntries as entry, index (entry.timestamp)}
+                <li
+                    class="{entry.isSelected ? 'selected' : ''}"
+                    style="{cssLeftPosition(entry, index)}"
+                >
+                    <!-- TODO: lang (needed for hyphenation) should come from comment -->
+                    <div
+                        class="circle cursor-pointer"
+                        on:click="{() => select(entry)}"
+                        lang="de"
+                        data-tooltip="{entry.comment}"
+                    ></div>
+                    <div class="badge rotate-around-circle">
+                        {dateFormatter.format(entry.timestamp)}
+                    </div>
+                </li>
+            {/each}
+        </ol>
+    {:else}
+        <div class="single-badge">
+            {dateFormatter.format(selectedEntry?.timestamp)}
+        </div>
+    {/if}
 </div>
 
 <style lang="postcss">
@@ -194,6 +200,15 @@
     .badge.rotate-around-circle {
         @apply transform rotate-45;
     }
+
+    .single-badge {
+        @apply absolute right-0;
+        @apply px-2;
+        @apply rounded-l-full  rounded-r-full bg-red-50 bg-opacity-60;
+        @apply shadow-md;
+        @apply z-0;
+    }
+
     @media (min-height: 600px) {
         .timeline-container {
             @apply mt-16;
