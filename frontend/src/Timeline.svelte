@@ -1,18 +1,18 @@
 <script context="module" lang="typescript">
-    export type TimelineEntry = {
+    export type TimelineEntry<T> = {
         timestamp: Date;
         comment: string | null;
-        object: any;
+        object: T;
     };
 </script>
 
 <script lang="typescript">
     import log from "loglevel";
 
-    export let entries: TimelineEntry[] = [];
-    export let selectedEntry: TimelineEntry | undefined = undefined;
+    export let entries: TimelineEntry<unknown>[] = [];
+    export let selectedEntry: TimelineEntry<unknown> | undefined = undefined;
 
-    type TimelineEntryWithPos = TimelineEntry & {
+    type TimelineEntryWithPos = TimelineEntry<unknown> & {
         position: number; // 0..100, percentage
         isSelected: boolean;
     };

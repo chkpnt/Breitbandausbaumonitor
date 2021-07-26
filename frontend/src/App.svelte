@@ -14,8 +14,8 @@
     let bbox: L.LatLngBounds | undefined = undefined;
     let coverageOverlayUrl: string | undefined = undefined;
 
-    let timelineEntries: TimelineEntry[] = [];
-    let selectedTimelineEntry: TimelineEntry | undefined;
+    let timelineEntries: TimelineEntry<CoveragefileMetadata>[] = [];
+    let selectedTimelineEntry: TimelineEntry<CoveragefileMetadata> | undefined;
 
     $: {
         log.debug("selectedTimelineEntry changed to:", selectedTimelineEntry);
@@ -55,9 +55,9 @@
         coverages: CoveragefileMetadata[];
     };
 
-    function reviver(key, value) {
+    function reviver(key: string, value: unknown) {
         if (key == "timestamp") {
-            return new Date(value);
+            return new Date(value as string);
         }
 
         return value;

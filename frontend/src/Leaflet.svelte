@@ -14,7 +14,7 @@
     let map: L.Map | undefined;
     $: mapProp = map;
 
-    export const getMap = (): L.Map => map;
+    export const getMap = (): L.Map | undefined => map;
     setContext("map", getMap);
 
     function createLeaflet(node: HTMLElement) {
