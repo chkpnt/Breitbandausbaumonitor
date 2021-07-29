@@ -30,7 +30,8 @@
 
         L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png", {
             attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel=“noopener noreferrer“>OpenStreetMap</a> contributors' +
+                ' | Ausbaukarte und Legende: <a href="https://t-map.telekom.de/tmap2/coverage_checker/?initLayerGroup=fixedline&initLayerIds=coverage5G,coverageVDSL50,coverageVDSL100,coverageVDSL250,coverageGlasfaser1000,coveragePlanned" target="_blank" rel=“noopener noreferrer“>Telekom Deutschland GmbH</a>',
         }).addTo(map);
 
         return {
