@@ -17,15 +17,12 @@ This project is used to archive the current overlay for landline data transmissi
 [![Tests](https://img.shields.io/sonar/tests/breitbandausbaumonitor-archiver?label=Tests&server=https%3A%2F%2Fsonar.chkpnt.de&sonarVersion=8.9)](https://sonar.chkpnt.de/component_measures?id=breitbandausbaumonitor-archiver&metric=tests&view=list)
 
 ### Tamm
+[Breitbandausbaumonitor (front end)](https://chkpnt.github.io/Breitbandausbaumonitor/index.html)
 ![Ausbaukarte Tamm](overlays/Tamm/latest.svg)
-↪ [**Breitbandausbaumonitor (front end)**](https://chkpnt.github.io/Breitbandausbaumonitor/index.html)
 
 ### Karlsruhe
+[Breitbandausbaumonitor (front end)](https://chkpnt.github.io/Breitbandausbaumonitor/index.html?region=Karlsruhe)
 ![Ausbaukarte Karlsruhe](overlays/Karlsruhe/latest.svg)
-↪ [**Breitbandausbaumonitor (front end)**](https://chkpnt.github.io/Breitbandausbaumonitor/index.html?region=Karlsruhe)
-
-### Legend
-![Legende](frontend/src/images/legend.png)
 
 ## Archiving other regions
 Just open a pull request with a new `DownloadCoverageTask` in [build.gradle.kts](build.gradle.kts).
