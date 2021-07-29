@@ -1,4 +1,11 @@
 # Breitbandausbaumonitor
+
+This project is used to archive the current overlay for landline data transmission technologies of Deutsche Telekom's [coverage map] in specific regions on a daily basis:
+
+- Tamm: since March 14, 2021
+- Karlsruhe: since Juli 04, 2021
+
+## Current status
 [![License](https://img.shields.io/github/license/chkpnt/Breitbandausbaumonitor.svg?label=License)](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)) <br>
 [![workflows](https://img.shields.io/badge/Workflows-%40GitHub-inactive)](https://github.com/chkpnt/Breitbandausbaumonitor/actions)
 [![update overlays](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-overlays.yml/badge.svg)](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-overlays.yml)
@@ -7,19 +14,15 @@
 [![SonarQube](https://img.shields.io/badge/SonarQube-%40sonar.chkpnt.de-inactive)](https://github.com/chkpnt/Breitbandausbaumonitor/actions)
 [![SonarQube](https://img.shields.io/badge/archiver-analysis-blue.svg)](https://sonar.chkpnt.de/dashboard?id=breitbandausbaumonitor-archiver)
 [![SonarQube](https://img.shields.io/badge/front%20end-analysis-blue.svg)](https://sonar.chkpnt.de/dashboard?id=breitbandausbaumonitor-frontend)
-<!-- doens't work at the moment: https://github.com/badges/shields/issues/5882 [![Tests](https://img.shields.io/sonar/tests/breitbandausbaumonitor-archiver?label=Tests&server=https%3A%2F%2Fsonar.chkpnt.de)](https://sonar.chkpnt.de/component_measures?id=breitbandausbaumonitor-archiver&metric=tests&view=list) -->
+[![Tests](https://img.shields.io/sonar/tests/breitbandausbaumonitor-archiver?label=Tests&server=https%3A%2F%2Fsonar.chkpnt.de&sonarVersion=8.9)](https://sonar.chkpnt.de/component_measures?id=breitbandausbaumonitor-archiver&metric=tests&view=list)
 
-This project is used to archive the current overlay for landline data transmission technologies of Deutsche Telekom's [coverage map] in specific regions on a daily basis:
-
-- Tamm: since March 14, 2021
-- Karlsruhe: since Juli 04, 2021
-
-## Current status
 ### Tamm
 ![Ausbaukarte Tamm](overlays/Tamm/latest.svg)
+↪ [**Breitbandausbaumonitor (front end)**](https://chkpnt.github.io/Breitbandausbaumonitor/index.html)
 
 ### Karlsruhe
 ![Ausbaukarte Karlsruhe](overlays/Karlsruhe/latest.svg)
+↪ [**Breitbandausbaumonitor (front end)**](https://chkpnt.github.io/Breitbandausbaumonitor/index.html?region=Karlsruhe)
 
 ### Legend
 ![Legende](frontend/src/images/legend.png)
