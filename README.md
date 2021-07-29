@@ -22,7 +22,7 @@ This project is used to archive the current overlay for landline data transmissi
 ![Ausbaukarte Karlsruhe](overlays/Karlsruhe/latest.svg)
 
 ### Legend
-![Legende](.github/images/Telekom-Legende.png)
+![Legende](frontend/src/images/legend.png)
 
 ## Archiving other regions
 Just open a pull request with a new `DownloadCoverageTask` in [build.gradle.kts](build.gradle.kts).

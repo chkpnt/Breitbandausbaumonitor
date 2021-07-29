@@ -132,15 +132,20 @@
     }
 
     .timeline-container {
-        @apply absolute mx-auto h-4 mt-2;
-        @apply z-1000;
+        /*@apply absolute mx-auto h-4 mt-4;*/
+        @apply flex-grow;
+        @apply relative;
+        @apply w-3/4 h-4 mt-4 mr-16;
+        @apply z-1100;
+        @apply font-sans text-xs;
+        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
         /* so the tooltip keeps in the viewport */
-        left: calc(max(8%, calc(var(--tooltip-width) / 2)));
-        right: calc(max(8%, calc(var(--tooltip-width) / 2)));
+        /* left: calc(max(4%, calc(var(--tooltip-width) / 2))); */
+        /* right: calc(max(250px, calc(var(--tooltip-width) / 2))); */
     }
 
     .timeline {
-        @apply bg-red-600 h-0.5 inset-x-0 absolute bottom-2 transform translate-y-1/2;
+        @apply absolute bg-red-600 h-0.5 inset-x-0 top-1/2 transform -translate-y-1/2;
         @apply shadow-md;
         @apply z-auto;
     }
@@ -182,9 +187,10 @@
     }
 
     .badge {
-        @apply absolute bottom-0 left-full h-5 leading-5 ml-1.5 pl-1 pr-2;
-        @apply rounded-l rounded-r-full bg-red-50 bg-opacity-60;
+        @apply absolute bottom-0 left-full h-5 ml-1.5 pl-2 pr-2;
+        @apply rounded-l-lg rounded-r-lg bg-gray-50 bg-opacity-50;
         @apply shadow-md;
+        @apply leading-5;
         @apply z-0;
     }
     .selected > .badge {
@@ -204,14 +210,14 @@
     .single-badge {
         @apply absolute right-0;
         @apply px-2;
-        @apply rounded-l-full  rounded-r-full bg-red-50 bg-opacity-60;
+        @apply rounded-l-lg rounded-r-lg bg-gray-50 bg-opacity-50;
         @apply shadow-md;
         @apply z-0;
     }
 
     @media (min-height: 600px) {
         .timeline-container {
-            @apply mt-16;
+            @apply mt-18;
         }
         li:nth-child(odd) > .badge.rotate-around-circle {
             @apply transform rotate-45;

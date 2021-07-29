@@ -89,14 +89,11 @@ export default {
         copy({
             targets: [
                 {
-                    src: [
-                        "src/index.html",
-                        "src/styles.css",
-                        "src/favicon.png",
-                    ],
+                    src: ["src/index.html", "src/styles.css"],
                     dest: "dist/",
                 },
-                { src: ["../overlays"], dest: "dist/" },
+                { src: "src/images", dest: "dist/" },
+                { src: "../overlays", dest: "dist/" },
             ],
         }),
 

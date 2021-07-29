@@ -14,8 +14,12 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
+            margin: {
+                18: "4.5rem",
+            },
             zIndex: {
                 1000: 1000,
+                1100: 1100,
             },
         },
     },
