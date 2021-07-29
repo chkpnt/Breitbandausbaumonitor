@@ -6,7 +6,7 @@ This project is used to archive the current overlay for landline data transmissi
 - Karlsruhe: since Juli 04, 2021
 
 ## Current status
-[![License](https://img.shields.io/github/license/chkpnt/Breitbandausbaumonitor.svg?label=License)](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)) <br>
+[![License](https://img.shields.io/github/license/chkpnt/Breitbandausbaumonitor?label=License)](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)) <br>
 [![workflows](https://img.shields.io/badge/Workflows-%40GitHub-inactive)](https://github.com/chkpnt/Breitbandausbaumonitor/actions)
 [![update overlays](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-overlays.yml/badge.svg)](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-overlays.yml)
 [![update frontend](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-frontend.yml/badge.svg)](https://github.com/chkpnt/Breitbandausbaumonitor/actions/workflows/update-frontend.yml)
