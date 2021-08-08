@@ -16,7 +16,7 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.24")
-    testImplementation("com.github.tomakehurst:wiremock-jre8:2.29.1")
+    testImplementation("com.github.tomakehurst:wiremock-jre8:2.30.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
 }
 
