@@ -33,6 +33,12 @@ tasks {
     }
 }
 
+tasks.register("printEmbeddedKotlinVersion") {
+    doLast {
+        println(embeddedKotlinVersion)
+    }
+}
+
 sonarqube {
     properties {
         property("sonar.host.url", "https://sonar.chkpnt.de")
@@ -40,3 +46,4 @@ sonarqube {
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
+
