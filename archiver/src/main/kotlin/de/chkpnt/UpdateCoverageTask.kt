@@ -14,7 +14,7 @@ import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.ProviderFactory
 import org.gradle.api.tasks.*
-import org.gradle.internal.hash.HashUtil
+import org.gradle.internal.hash.Hashing
 import java.io.File
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -99,7 +99,7 @@ abstract class UpdateCoverageTask : DefaultTask() {
         return CoveragefileMetadata(
                 timestamp = timestamp.get().truncatedTo(ChronoUnit.SECONDS),
                 file = file.name,
-                sha1 = HashUtil.sha1(file).asHexString(),
+                sha1 = Hashing.sha1().hashFile(file).toString(),
                 bbox = bbox.get(),
                 size = size.get(),
         )
