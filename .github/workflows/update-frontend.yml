@@ -20,7 +20,7 @@ jobs:
       - name: Build front end
         run: ./gradlew buildFrontend
 
-      - uses: webfactory/ssh-agent@v0.5.1
+      - uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.WORKFLOW_SSH_KEY }}
 
