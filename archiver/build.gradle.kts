@@ -12,12 +12,19 @@ repositories {
 
 dependencies {
     implementation("org.ajoberstar:gradle-git-publish:3.0.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+    // Attention: kotlinx-serialization-json must be compatible with embeddedKotlinVersion
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.24")
-    testImplementation("com.github.tomakehurst:wiremock-jre8:2.29.1")
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
+    testImplementation("com.github.tomakehurst:wiremock-jre8:2.31.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+}
+
+tasks.register("printEmbeddedKotlinVersion") {
+    doLast {
+        println(embeddedKotlinVersion)
+    }
 }
 
 tasks {
@@ -30,12 +37,6 @@ tasks {
             xml.required.set(true)
             html.required.set(true)
         }
-    }
-}
-
-tasks.register("printEmbeddedKotlinVersion") {
-    doLast {
-        println(embeddedKotlinVersion)
     }
 }
 
