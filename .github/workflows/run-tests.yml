@@ -18,11 +18,14 @@ jobs:
 
       - name: SonarQube analysis (archiver)
         run: ./gradlew sonarqube
+        if: github.ref == 'refs/heads/main'
         env:
           SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
         working-directory: archiver
 
       - name: SonarQube analysis (front end)
         run: ./gradlew frontend:sonarqube
+        if: github.ref == 'refs/heads/main'
         env:
           SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+
