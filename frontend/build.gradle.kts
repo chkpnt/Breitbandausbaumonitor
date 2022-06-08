@@ -3,7 +3,7 @@ import com.github.gradle.node.npm.task.NpmTask
 plugins {
     id("com.github.node-gradle.node") version "3.1.1"
     id("org.ajoberstar.git-publish")
-    id("org.sonarqube") version "3.3"
+    id("org.sonarqube") version "3.4.0.2513"
 }
 
 node {
