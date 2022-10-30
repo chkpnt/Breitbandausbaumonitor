@@ -7,11 +7,10 @@ plugins {
 
 repositories {
     mavenCentral()
-    gradlePluginPortal()
 }
 
 dependencies {
-    implementation("org.ajoberstar:gradle-git-publish:3.0.0")
+    implementation("org.ajoberstar.git-publish:gradle-git-publish:3.0.1")
     // Attention: kotlinx-serialization-json must be compatible with embeddedKotlinVersion
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
 
