@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
     kotlin("plugin.serialization") version embeddedKotlinVersion
     jacoco
-    id("org.sonarqube") version "3.3"
+    id("org.sonarqube") version "3.5.0.2730"
 }
 
 repositories {
