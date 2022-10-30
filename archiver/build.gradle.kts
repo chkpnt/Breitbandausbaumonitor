@@ -12,7 +12,7 @@ repositories {
 dependencies {
     implementation("org.ajoberstar.git-publish:gradle-git-publish:3.0.1")
     // Attention: kotlinx-serialization-json must be compatible with embeddedKotlinVersion
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
