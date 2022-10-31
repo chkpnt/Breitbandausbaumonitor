@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
     let collapsed = true;
 
     function toggle() {

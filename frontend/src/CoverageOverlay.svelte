@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
     import L from "leaflet";
     import { getContext } from "svelte";
     import log from "loglevel";

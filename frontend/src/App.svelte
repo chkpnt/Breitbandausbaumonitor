@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
     import L from "leaflet";
     import Leaflet from "./Leaflet.svelte";
     import CoverageOverlay from "./CoverageOverlay.svelte";

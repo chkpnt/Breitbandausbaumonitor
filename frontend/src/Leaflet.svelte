@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
     import { createEventDispatcher, setContext } from "svelte";
     import L from "leaflet";
     import "leaflet/dist/leaflet.css";

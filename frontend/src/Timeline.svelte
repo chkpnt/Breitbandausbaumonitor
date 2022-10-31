@@ -1,4 +1,4 @@
-<script context="module" lang="typescript">
+<script context="module" lang="ts">
     export type TimelineEntry<T> = {
         timestamp: Date;
         comment: string | null;
@@ -6,7 +6,7 @@
     };
 </script>
 
-<script lang="typescript">
+<script lang="ts">
     import log from "loglevel";
 
     export let entries: TimelineEntry<unknown>[] = [];

@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
     const repo = "https://github.com/chkpnt/Breitbandausbaumonitor/";
 
     // html and css originally by Tim Holman (@tholman),
