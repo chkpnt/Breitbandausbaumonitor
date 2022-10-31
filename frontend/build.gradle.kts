@@ -25,7 +25,7 @@ gitPublish {
 }
 
 // Doesn't make much sense as long as the script-tags in .svelte files are not scanned :-/
-sonarqube {
+sonar {
     properties {
         property("sonar.host.url", "https://sonar.chkpnt.de")
         property("sonar.login", System.getenv("SONARQUBE_TOKEN"))

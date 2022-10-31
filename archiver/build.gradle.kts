@@ -39,7 +39,7 @@ tasks {
     }
 }
 
-sonarqube {
+sonar {
     properties {
         property("sonar.host.url", "https://sonar.chkpnt.de")
         property("sonar.login", System.getenv("SONARQUBE_TOKEN"))
