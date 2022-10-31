@@ -64,7 +64,7 @@
         extendedEntries.forEach((it) => (it.isSelected = false));
         entry.isSelected = true;
         selectedEntry = entries.find((it) => it.timestamp == entry.timestamp);
-        extendedEntries = extendedEntries // eslint-disable-line no-self-assign
+        extendedEntries = extendedEntries; // eslint-disable-line no-self-assign
     }
 
     const dateFormatter = new Intl.DateTimeFormat([], {

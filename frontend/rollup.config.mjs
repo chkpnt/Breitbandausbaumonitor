@@ -57,7 +57,7 @@ export default {
         svelte({
             preprocess: sveltePreprocess({
                 sourceMap: !production,
-                postcss: {}
+                postcss: {},
             }),
             compilerOptions: {
                 // enable run-time checks when not in production
@@ -110,5 +110,5 @@ export default {
     watch: {
         clearScreen: false,
     },
-    strictDeprecations: true
+    strictDeprecations: true,
 };
