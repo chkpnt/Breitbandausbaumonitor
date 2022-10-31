@@ -27,7 +27,7 @@ I recommend to use
 ### Quickstart
 
 ```console
-$ npm install
+$ npm ci
 $ npm run dev
 ```
 

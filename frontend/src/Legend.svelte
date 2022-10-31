@@ -32,7 +32,7 @@
         @apply cursor-pointer;
     }
     .header::after {
-        @apply transition-transform duration-300;
+        @apply duration-300;
         @apply inline-block bg-center;
         height: 1.125rem; /* = font-size of text-lg */
         width: 1.125rem;
@@ -41,7 +41,7 @@
         content: "";
     }
     .header.collapsed::after {
-        @apply transform rotate-180;
+        @apply rotate-180;
     }
 
     .legend {

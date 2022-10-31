@@ -64,7 +64,7 @@
         extendedEntries.forEach((it) => (it.isSelected = false));
         entry.isSelected = true;
         selectedEntry = entries.find((it) => it.timestamp == entry.timestamp);
-        extendedEntries = extendedEntries;
+        extendedEntries = extendedEntries
     }
 
     const dateFormatter = new Intl.DateTimeFormat([], {
@@ -133,7 +133,7 @@
 
     .timeline-container {
         /*@apply absolute mx-auto h-4 mt-4;*/
-        @apply flex-grow;
+        @apply grow;
         @apply relative;
         @apply w-3/4 h-4 mt-4 mr-16;
         @apply z-1100;
@@ -175,7 +175,7 @@
         @apply invisible transition-all ease-out delay-200 duration-200;
         @apply absolute w-40 mt-2 top-full px-2 py-1.5;
         @apply left-1/2 transform -translate-x-1/2;
-        @apply bg-gray-50 bg-opacity-90;
+        @apply bg-gray-50/90;
         @apply shadow-lg rounded-lg;
         @apply z-50;
         width: var(--tooltip-width);
@@ -188,7 +188,7 @@
 
     .badge {
         @apply absolute bottom-0 left-full h-5 ml-1.5 pl-2 pr-2;
-        @apply rounded-l-lg rounded-r-lg bg-gray-50 bg-opacity-50;
+        @apply rounded-l-lg rounded-r-lg bg-gray-50/50;
         @apply shadow-md;
         @apply leading-5;
         @apply z-0;
@@ -204,13 +204,13 @@
             center;
     }
     .badge.rotate-around-circle {
-        @apply transform rotate-45;
+        @apply rotate-45;
     }
 
     .single-badge {
         @apply absolute right-0;
         @apply px-2;
-        @apply rounded-l-lg rounded-r-lg bg-gray-50 bg-opacity-50;
+        @apply rounded-l-lg rounded-r-lg bg-gray-50/50;
         @apply shadow-md;
         @apply z-0;
     }
@@ -220,10 +220,10 @@
             @apply mt-18;
         }
         li:nth-child(odd) > .badge.rotate-around-circle {
-            @apply transform rotate-45;
+            @apply rotate-45;
         }
         li:nth-child(even) > .badge.rotate-around-circle {
-            @apply transform -rotate-45;
+            @apply -rotate-45;
         }
     }
 </style>
