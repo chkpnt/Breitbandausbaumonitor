@@ -7,6 +7,7 @@
 </script>
 
 <div class="legend-container">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="header {collapsed ? 'collapsed' : ''}" on:click="{toggle}">
         Legende
     </div>

@@ -107,6 +107,7 @@
                     style="{cssLeftPosition(entry, index)}"
                 >
                     <!-- TODO: lang (needed for hyphenation) should come from comment -->
+                    <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <div
                         class="circle cursor-pointer"
                         on:click="{() => select(entry)}"
