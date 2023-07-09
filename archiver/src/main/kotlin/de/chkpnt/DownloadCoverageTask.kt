@@ -8,6 +8,11 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
+import java.nio.file.Path
+import java.time.Duration
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
@@ -57,7 +62,23 @@ abstract class DownloadCoverageTask : DefaultTask() {
     fun download() {
         println("Download coverage map overlay for ${region.get()} to ${destFile.get().asFile.relativeTo(project.projectDir)}")
         destFile.get().asFile.parentFile.mkdirs()
-        ant.invokeMethod("get", mapOf("src" to downloadUrl, "dest" to destFile.get()))
+
+        val httpClient = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(10))
+            .build()
+
+        val getRequest = HttpRequest.newBuilder()
+            .uri(URI.create(downloadUrl))
+            .timeout(Duration.ofMinutes(1))
+            .build()
+
+        val response = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofFile(Path.of(destFile.get().asFile.path)))
+
+        if (response.statusCode() == 200) {
+            println("Download complete!")
+        } else {
+            println("Download failed with status code: ${response.statusCode()}")
+        }
     }
 
     object Constants {
