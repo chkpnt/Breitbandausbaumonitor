@@ -10,7 +10,7 @@ jobs:
   update-frontend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ssh-key: ${{ secrets.WORKFLOW_SSH_KEY }}
 
@@ -20,7 +20,7 @@ jobs:
       - name: Build front end
         run: ./gradlew buildFrontend
 
-      - uses: webfactory/ssh-agent@v0.5.3
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.WORKFLOW_SSH_KEY }}
 
