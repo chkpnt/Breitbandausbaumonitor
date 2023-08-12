@@ -5,6 +5,10 @@ import assertk.assertions.exists
 import assertk.assertions.isEqualTo
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.*
+import com.github.tomakehurst.wiremock.http.Request
+import com.github.tomakehurst.wiremock.http.RequestListener
+import com.github.tomakehurst.wiremock.http.Response
+import org.gradle.api.internal.tasks.compile.JavaCompilerArgumentsBuilder.LOGGER
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -14,6 +18,7 @@ import java.net.URI
 import java.nio.file.Path
 import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.readText
+
 
 @ExperimentalPathApi
 internal class DownloadCoverageTaskTest {
@@ -29,6 +34,9 @@ internal class DownloadCoverageTaskTest {
     @BeforeEach
     fun setup() {
         server = WireMockServer(0)
+        /* Add logging of request and any matched response. */
+        server.addMockServiceRequestListener(
+            ::logRequest);
         server.start()
 
         val project = ProjectBuilder.builder().build()
@@ -63,6 +71,16 @@ internal class DownloadCoverageTaskTest {
                 "&bbox=1000000.01,6000000.01,1002000.01,6002000.01&bboxSR=3857&imageSR=3857" +
                 "&size=1000,600" +
                 "&transparent=true" +
-                "&f=image")))
+                "&f=image")).withHeader("User-Agent", equalTo("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0")))
+    }
+
+    private fun logRequest(
+        inRequest: Request,
+        inResponse: Response
+    ) {
+        println("WireMock request at URL: ${inRequest.absoluteUrl}")
+        println("WireMock request headers: \n${inRequest.headers}")
+        println("WireMock response body: \n${inResponse.bodyAsString}}")
+        println("WireMock response headers: \n${inResponse.headers}")
     }
 }
