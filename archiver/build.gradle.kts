@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.ajoberstar.git-publish:gradle-git-publish:3.0.1")
+    implementation("org.ajoberstar.git-publish:gradle-git-publish:4.2.2")
     // Attention: kotlinx-serialization-json must be compatible with embeddedKotlinVersion
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 
