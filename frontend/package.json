@@ -34,7 +34,7 @@
         "rollup-plugin-css-only": "4.2.0",
         "rollup-plugin-livereload": "2.0.5",
         "rollup-plugin-svelte": "7.1.0",
-        "svelte": "3.52.0",
+        "svelte": "4.2.19",
         "svelte-check": "2.9.2",
         "svelte-preprocess": "4.10.7",
         "tailwindcss": "3.2.1",
