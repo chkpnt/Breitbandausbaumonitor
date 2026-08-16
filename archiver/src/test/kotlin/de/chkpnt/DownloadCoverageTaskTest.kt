@@ -6,9 +6,7 @@ import assertk.assertions.isEqualTo
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.*
 import com.github.tomakehurst.wiremock.http.Request
-import com.github.tomakehurst.wiremock.http.RequestListener
 import com.github.tomakehurst.wiremock.http.Response
-import org.gradle.api.internal.tasks.compile.JavaCompilerArgumentsBuilder.LOGGER
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -35,12 +33,11 @@ internal class DownloadCoverageTaskTest {
     fun setup() {
         server = WireMockServer(0)
         /* Add logging of request and any matched response. */
-        server.addMockServiceRequestListener(
-            ::logRequest);
+        server.addMockServiceRequestListener(::logRequest)
         server.start()
 
         val project = ProjectBuilder.builder().build()
-        sut = project.tasks.create("downloadCoverage", DownloadCoverageTask::class.java)
+        sut = project.tasks.register("downloadCoverage", DownloadCoverageTask::class.java).get()
         sut.endpoint.set(URI.create("http://localhost:${server.port()}"))
     }
 

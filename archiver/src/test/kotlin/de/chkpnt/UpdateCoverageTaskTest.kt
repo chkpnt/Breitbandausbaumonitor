@@ -32,7 +32,7 @@ internal class UpdateCoverageTaskTest {
         tempDir.resolve("overlays/existing/data.json").writeText(EXISTING_METADATA_JSON)
 
         val project = ProjectBuilder.builder().build()
-        sut = project.tasks.create("updateCoverage", UpdateCoverageTask::class.java)
+        sut = project.tasks.register("updateCoverage", UpdateCoverageTask::class.java).get()
     }
 
     @Test
