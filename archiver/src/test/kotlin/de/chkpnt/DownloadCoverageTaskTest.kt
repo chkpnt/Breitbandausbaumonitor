@@ -21,8 +21,6 @@ import kotlin.io.path.readText
 @ExperimentalPathApi
 internal class DownloadCoverageTaskTest {
     private lateinit var sut: DownloadCoverageTask
-    private lateinit var newRegionOutputDir: Path
-    private lateinit var existingRegionOutputDir: Path
 
     private lateinit var server: WireMockServer
 
