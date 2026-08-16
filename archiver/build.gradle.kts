@@ -20,7 +20,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
-    testImplementation("com.github.tomakehurst:wiremock-jre8:2.35.2")
+    testImplementation("com.github.tomakehurst:wiremock-jre8:3.0.1")
 }
 
 tasks.register("printEmbeddedKotlinVersion") {
