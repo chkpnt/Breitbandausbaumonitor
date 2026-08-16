@@ -20,9 +20,9 @@ dependencies {
     // Attention: kotlinx-serialization-json must be compatible with embeddedKotlinVersion
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 
-    testImplementation(platform("org.junit:junit-bom:5.14.4"))
+    testImplementation(platform("org.junit:junit-bom:6.1.3"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.14.4")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.1.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
