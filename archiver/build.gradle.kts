@@ -18,7 +18,7 @@ repositories {
 dependencies {
     implementation("org.ajoberstar.git-publish:gradle-git-publish:3.0.1")
     // Attention: kotlinx-serialization-json must be compatible with embeddedKotlinVersion
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
 
     testImplementation(platform("org.junit:junit-bom:6.1.3"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
